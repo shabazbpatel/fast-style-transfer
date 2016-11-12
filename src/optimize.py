@@ -4,7 +4,7 @@ import tensorflow as tf, numpy as np, os
 import transform
 from utils import get_img
 
-STYLE_LAYERS = ('relu1_1', 'relu2_1', 'relu3_1', 'relu4_1', 'relu5_1')
+STYLE_LAYERS = ('relu1_2', 'relu2_2', 'relu3_2', 'relu4_2', 'relu5_2')
 CONTENT_LAYER = 'relu4_2'
 DEVICES = 'CUDA_VISIBLE_DEVICES'
 
@@ -22,7 +22,11 @@ def optimize(content_targets, style_target, content_weight, style_weight,
 
     style_features = {}
 
-    batch_shape = (batch_size,256,256,3)
+    if not slow:
+        batch_shape = (batch_size,256,256,3)
+    else:
+        batch_shape = (1,) + get_img(content_targets[0]).shape
+
     style_shape = (1,) + style_target.shape
     print(style_shape)
 
@@ -101,7 +105,8 @@ def optimize(content_targets, style_target, content_weight, style_weight,
                 step = curr + batch_size
                 X_batch = np.zeros(batch_shape, dtype=np.float32)
                 for j, img_p in enumerate(content_targets[curr:step]):
-                   X_batch[j] = get_img(img_p, (256,256,3)).astype(np.float32)
+                    resize_shape = (256,256,3) if not slow else False
+                    X_batch[j] = get_img(img_p, resize_shape).astype(np.float32)
 
                 iterations += 1
                 assert X_batch.shape[0] == batch_size
