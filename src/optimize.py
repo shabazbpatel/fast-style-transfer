@@ -3,6 +3,7 @@ import functools
 import vgg, pdb, time
 import tensorflow as tf, numpy as np, os
 import transform
+import random
 from utils import get_img
 
 STYLE_LAYERS = ('relu1_1', 'relu2_1', 'relu3_1', 'relu4_1', 'relu5_1')
@@ -73,10 +74,9 @@ def optimize(content_targets, style_target, content_weight, style_weight,
         for style_layer in STYLE_LAYERS:
             layer = net[style_layer]
             bs, height, width, filters = map(lambda i:i.value,layer.get_shape())
-            size = height * width * filters
             feats = tf.reshape(layer, (bs, height * width, filters))
             feats_T = tf.transpose(feats, perm=[0,2,1])
-            grams = tf.matmul(feats_T, feats) / size
+            grams = tf.matmul(feats_T, feats)
             style_gram = style_features[style_layer]
             style_losses.append(2 * tf.nn.l2_loss(grams - style_gram)/style_gram.size)
 
@@ -94,7 +94,7 @@ def optimize(content_targets, style_target, content_weight, style_weight,
         # overall loss
         train_step = tf.train.AdamOptimizer(learning_rate).minimize(loss)
         sess.run(tf.global_variables_initializer())
-        import random
+
         uid = random.randint(1, 100)
         print("UID: %s" % uid)
         for epoch in range(epochs):
