@@ -9,7 +9,7 @@ import evaluate
 
 CONTENT_WEIGHT = 7.5e0
 STYLE_WEIGHT = 1e2
-TV_WEIGHT = 2e2
+TV_WEIGHT = 1e0
 
 LEARNING_RATE = 1e-3
 NUM_EPOCHS = 2
@@ -131,7 +131,7 @@ def main():
 
     if options.slow:
         if options.epochs < 10:
-            kwargs['epochs'] = 1300
+            kwargs['epochs'] = 3000
         if options.learning_rate < 1:
             kwargs['learning_rate'] = 1e1
 

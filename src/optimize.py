@@ -6,7 +6,7 @@ import transform
 import random
 from utils import get_img
 
-STYLE_LAYERS = ('relu1_1', 'relu2_1', 'relu3_1', 'relu4_1', 'relu5_1')
+STYLE_LAYERS = ('relu1_2', 'relu2_2', 'relu3_2', 'relu4_2', 'relu5_2')
 CONTENT_LAYER = 'relu4_2'
 DEVICES = 'CUDA_VISIBLE_DEVICES'
 
@@ -41,7 +41,7 @@ def optimize(content_targets, style_target, content_weight, style_weight,
         for layer in STYLE_LAYERS:
             features = net[layer].eval(feed_dict={style_image:style_pre})
             features = np.reshape(features, (-1, features.shape[3]))
-            gram = np.matmul(features.T, features) / features.size
+            gram = np.matmul(features.T, features)
             style_features[layer] = gram
 
     with tf.Graph().as_default(), tf.Session() as sess:
@@ -89,7 +89,7 @@ def optimize(content_targets, style_target, content_weight, style_weight,
         x_tv = tf.nn.l2_loss(preds[:,:,1:,:] - preds[:,:,:batch_shape[2]-1,:])
         tv_loss = tv_weight*2*(x_tv/tv_x_size + y_tv/tv_y_size)/batch_size
 
-        loss = content_loss + style_loss + tv_loss
+        loss = content_loss  + style_loss + tv_loss
 
         # overall loss
         train_step = tf.train.AdamOptimizer(learning_rate).minimize(loss)
