@@ -130,7 +130,7 @@ def main():
 
     if options.slow:
         if options.epochs < 10:
-            kwargs['epochs'] = 1000
+            kwargs['epochs'] = 1300
         if options.learning_rate < 1:
             kwargs['learning_rate'] = 1e1
 
