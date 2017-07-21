@@ -13,6 +13,9 @@ It takes 100ms on a 2015 Titan X to style the MIT Stata Center (1024×680) like 
 
 Our implementation is based off of a combination of Gatys' [A Neural Algorithm of Artistic Style](https://arxiv.org/abs/1508.06576), Johnson's [Perceptual Losses for Real-Time Style Transfer and Super-Resolution](http://cs.stanford.edu/people/jcjohns/eccv16/), and Ulyanov's [Instance Normalization](https://arxiv.org/abs/1607.08022). 
 
+#### Don't have access to a GPU but want to train a style or transform large batches of images?
+Contact me at engstrom@mit.edu for rates.
+
 ## Video Stylization 
 Here we transformed every frame in a video, then combined the results. [Click to go to the full demo on YouTube!](https://www.youtube.com/watch?v=xVJwwWQlQ1o) The style here is Udnie, as above.
 <div align = 'center'>
@@ -80,12 +83,23 @@ Use `transform_video.py` to transfer style into a video. Run `python transform_v
 
 ### Requirements
 You will need the following to run the above:
-- TensorFlow .11
-- Python 2, Pillow, scipy, numpy
+- TensorFlow 0.11.0
+- Python 2.7.9, Pillow 3.4.2, scipy 0.18.1, numpy 1.11.2
 - If you want to train (and don't want to wait for 4 months):
   - A decent GPU
   - All the required NVIDIA software to run TF on a GPU (cuda, etc)
-- ffmpeg if you want to stylize video
+- ffmpeg 3.1.3 if you want to stylize video
+
+### Citation
+```
+  @misc{engstrom2016faststyletransfer,
+    author = {Logan Engstrom},
+    title = {Fast Style Transfer},
+    year = {2016},
+    howpublished = {\url{https://github.com/lengstrom/fast-style-transfer/}},
+    note = {commit xxxxxxx}
+  }
+```
 
 ### Attributions/Thanks
 - This project could not have happened without the advice (and GPU access) given by [Anish Athalye](http://www.anishathalye.com/). 

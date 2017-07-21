@@ -106,7 +106,8 @@ def check_opts(opts):
 
 def _get_files(img_dir):
     files = list_files(img_dir)
-    return map(lambda x: os.path.join(img_dir,x), files)
+    return [os.path.join(img_dir,x) for x in files]
+
     
 def main():
     parser = build_parser()
@@ -159,7 +160,7 @@ def main():
             else:
                 save_img(preds_path, preds[0])
     ckpt_dir = options.checkpoint_dir
-    cmd_text = 'python evaluate.py --checkpoint-dir %s ...' % ckpt_dir
+    cmd_text = 'python evaluate.py --checkpoint %s ...' % ckpt_dir
     if not options.slow:
         print("Training complete. For evaluation:\n    `%s`" % cmd_text)
 
