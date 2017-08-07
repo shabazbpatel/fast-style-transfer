@@ -1,0 +1,3 @@
+FROM datmo/tensorflow:cpu
+
+

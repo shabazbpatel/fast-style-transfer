@@ -13,8 +13,8 @@ import subprocess
 import numpy
 
 BATCH_SIZE = 4
-DEVICE = '/gpu:0'
-
+#DEVICE = '/gpu:0'
+DEVICE = 'cpu'
 
 def from_pipe(opts):
     command = ["ffprobe",

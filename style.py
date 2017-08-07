@@ -14,6 +14,7 @@ TV_WEIGHT = 1e0
 LEARNING_RATE = 1e-3
 NUM_EPOCHS = 2
 CHECKPOINT_DIR = 'checkpoints'
+DEFAULT_CHECKPOINT_DIR = os.environ['OUTPUT_DIR']
 CHECKPOINT_ITERATIONS = 2000
 VGG_PATH = 'data/imagenet-vgg-verydeep-19.mat'
 TRAIN_PATH = 'data/train2014'
@@ -25,7 +26,7 @@ def build_parser():
     parser = ArgumentParser()
     parser.add_argument('--checkpoint-dir', type=str,
                         dest='checkpoint_dir', help='dir to save checkpoint in',
-                        metavar='CHECKPOINT_DIR', required=True)
+                        metavar='CHECKPOINT_DIR', required=DEFAULT_CHECKPOINT_DIR)
 
     parser.add_argument('--style', type=str,
                         dest='style', help='style image path',
